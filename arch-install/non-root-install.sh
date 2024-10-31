@@ -2,7 +2,9 @@
 
 echo "This script assumes that you have already created a new user other than root and executing this script as that user."
 
-read -p "Do you want to Setup CUPS? This might be required to add printer. (y/n): " uin
+sleep 3
+
+read -rp "Do you want to Setup CUPS? This might be required to add printers. (y/n): " uin
 uin=$(echo "$uin" | tr '[:upper:]' '[:lower:]')
 if [ "$uin" = "y" ]; then
   sudo pacman -Syu cups
@@ -13,7 +15,7 @@ else
   echo "CUPS setup skipped."
 fi
 
-read -p "Do you want to Setup Desktop? (y/n): " uin
+read -rp "Do you want to Setup i3-wm Desktop? (y/n): " uin
 uin=$(echo "$uin" | tr '[:upper:]' '[:lower:]')
 if [ "$uin" = "y" ]; then
   sudo pacman -Syu xorg xorg-xinit i3 feh gcc python3 pulseaudio curl htop neofetch thunar pipewire vlc lxdm firefox alsa-utils i3status dmenu terminator lxdm
@@ -23,31 +25,31 @@ if [ "$uin" = "y" ]; then
   echo "exec i3" >> ~/.xinitrc
   mkdir ~/.config/
   cp -r dotconfig/* ~/.config/
-  cp wp.jpg ~/.config/
-  sudo cp Noto* /usr/share/fonts/
+  cp assets/wp.jpg ~/.config/
+  sudo cp assets/Noto* /usr/share/fonts/
 else
   echo "Minimal Install"
 fi
 
-read -p "Do you want to Setup Bluetooth? (y/n): " uin
+read -rp "Do you want to Setup Bluetooth? (y/n): " uin
 uin=$(echo "$uin" | tr '[:upper:]' '[:lower:]')
 if [ "$uin" = "y" ]; then
-  sudo pacman -S bluez bluez-utils
+  sudo pacman -Syu bluez bluez-utils
   sudo systemctl enable bluetooth
 else
   echo "No Bluetooth"
 fi
 
 
-sudo pacman -S go
+sudo pacman -Syu go git
 git clone https://aur.archlinux.org/yay.git
-cd yay
+cd yay || cd ./
 makepkg PKGBUILD
 sudo pacman -U yay-*
-yay -S brave-bin thunar visual-studio-code-bin
+yay -S thunar visual-studio-code-bin
 sudo pacman -S sof-firmware ibus avahi
 
 yay -S auto-cpufreq
-sudo cp ./auto-cpufreq.conf /etc/
+sudo cp assets/auto-cpufreq.conf /etc/
 
 exit 0

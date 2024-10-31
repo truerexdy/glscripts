@@ -192,3 +192,4 @@ bar {
 
 exec_always feh --bg-fill ~/.config/wp.jpg
 exec_always ibus-daemon
+
