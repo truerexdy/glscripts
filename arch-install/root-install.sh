@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pacman -Syu
-pacman -S nano sudo git ufw networkmanager base-devel grub efibootmgr
+pacman -S nvim sudo git ufw networkmanager base-devel grub efibootmgr
 grub-install
 grub-mkconfig -o /boot/grub/grub.cfg
 

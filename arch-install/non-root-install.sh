@@ -25,8 +25,7 @@ if [ "$uin" = "y" ]; then
   echo "exec i3" >> ~/.xinitrc
   mkdir ~/.config/
   cp -r dotconfig/* ~/.config/
-  cp assets/wp.jpg ~/.config/
-  sudo cp assets/Noto* /usr/share/fonts/
+  sudo cp -r assets/MyFonts /usr/share/fonts/
 else
   echo "Minimal Install"
 fi
