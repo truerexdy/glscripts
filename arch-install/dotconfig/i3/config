@@ -55,6 +55,9 @@ bindsym $mod+Return exec terminator
 # shutdown 
 bindsym $mod+p exec systemctl poweroff
 
+# lock
+bindsym $mod+i exec i3lock
+
 # reboot
 bindsym $mod+o exec systemctl reboot
 
