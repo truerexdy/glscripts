@@ -1,5 +1,5 @@
 #!/bin/bash
-rm $HOME/.local/share/Trash/*
+rm -rf $HOME/.local/share/Trash/*
 rm -rf $HOME/.cache/*
 rm -rf $HOME/.tmp/*
 sudo rm -rf /tmp/*
