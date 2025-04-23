@@ -27,3 +27,8 @@ require('rose-pine').setup({
 
 -- Set the colorscheme
 vim.cmd.colorscheme("rose-pine")
+
+vim.opt.tabstop = 4        -- Number of visual spaces per TAB
+vim.opt.shiftwidth = 4     -- Number of spaces to use for autoindent
+vim.opt.softtabstop = 4    -- Number of spaces a <Tab> counts for while editing
+vim.opt.expandtab = true
