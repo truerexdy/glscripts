@@ -1,6 +1,7 @@
 * {
     font-family: "SpaceMono";
     font-size: 12px;
+    background-color: #000000;
 }
 
 window {
@@ -30,12 +31,14 @@ window {
 #scroll {
     margin: 0px;
     border: none;
+    background-color: #000000;
 }
 
 #text {
     margin: 5px;
     border: none;
     color: #ffffff; 
+    background-color: #000000;
 }
 
 #entry:selected {
