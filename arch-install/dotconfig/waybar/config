@@ -6,9 +6,6 @@
   "modules-left": [
     "hyprland/workspaces"
   ],
-  "modules-center": [
-    "hyprland/window"
-  ],
   "modules-right": [
     "pulseaudio",
     "network",
@@ -25,9 +22,6 @@
     "all-outputs": true,
     "on-click": "activate",
     "format": "{name}"
-  },
-  "hyprland/window": {
-    "format": "{}"
   },
   "tray": {
     "icon-size": 18,
