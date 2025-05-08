@@ -3,5 +3,5 @@
 # ibus session bus with the below address.
 # If the IBUS_ADDRESS environment variable is set, it will
 # be used rather than this file.
-IBUS_ADDRESS=unix:path=/home/rexdy/.cache/ibus/dbus-XeX35lYQ,guid=9e0308ffed1d6c4dd9580822681b5c9b
-IBUS_DAEMON_PID=725
+IBUS_ADDRESS=unix:path=/home/rexdy/.cache/ibus/dbus-bOjKg02v,guid=a70d75c758e9043d4bc56f5e681c744b
+IBUS_DAEMON_PID=786
