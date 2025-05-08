@@ -36,7 +36,7 @@ setup_hyprland=$(echo "$setup_hyprland" | tr '[:upper:]' '[:lower:]')
 
 if [ "$setup_hyprland" = "y" ]; then
     echo "Setting up Hyprland Desktop..."
-    sudo pacman -Syu --noconfirm hyprland wofi waybar swaylock swayidle swww dunst polkit greetd greetd-tuigreet xorg-xwayland gcc python3 pulseaudio curl htop fastfetch thunar pipewire vlc firefox alsa-utils terminator network-manager-applet gvfs-mtp gvfs-gphoto2 qalculate-gtk eog xdg-utils
+    sudo pacman -Syu --noconfirm hyprland wofi waybar swaylock swayidle swww dunst polkit greetd greetd-tuigreet xorg-xwayland gcc python3 pulseaudio curl htop fastfetch nautilus pipewire vlc firefox alsa-utils terminator network-manager-applet gvfs-mtp gvfs-gphoto2 qalculate-gtk eog xdg-utils
     sudo systemctl enable pipewire.service # Enable pipewire user service
     sudo systemctl start pipewire.service # Start pipewire user service
 
@@ -83,7 +83,7 @@ fi
 
 # --- Yay (AUR Helper) Setup ---
 echo ""
-read -rp "Do you want to install Yay (AUR helper) and common AUR packages (thunar, visual-studio-code-bin)? (y/n): " setup_yay
+read -rp "Do you want to install Yay (AUR helper) and common AUR packages (visual-studio-code-bin)? (y/n): " setup_yay
 setup_yay=$(echo "$setup_yay" | tr '[:upper:]' '[:lower:]')
 
 if [ "$setup_yay" = "y" ]; then
@@ -107,8 +107,8 @@ if [ "$setup_yay" = "y" ]; then
     echo "Yay installed successfully."
 
     # Install AUR packages using Yay (excluding auto-cpufreq for now)
-    echo "Installing AUR packages: thunar visual-studio-code-bin"
-    yay -S --noconfirm thunar visual-studio-code-bin
+    echo "Installing AUR packages: visual-studio-code-bin"
+    yay -S --noconfirm visual-studio-code-bin
 
     # Install official repository packages
     echo "Installing official repository packages: sof-firmware ibus avahi"
