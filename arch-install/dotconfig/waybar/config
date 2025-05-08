@@ -47,8 +47,7 @@
     "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "format-linked": "{ifname} (No IP)",
     "format-disconnected": "X Disconnected",
-    "tooltip-format-wifi": "Down: {bandwidthDown} | Up: {bandwidthUp}",
-    "on-click": "nm-connection-editor"
+    "tooltip-format-wifi": "Down: {bandwidthDown} | Up: {bandwidthUp}"
   },
   "pulseaudio": {
     "format": "{volume}% {format_source}",
