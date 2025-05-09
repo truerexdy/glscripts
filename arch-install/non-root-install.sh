@@ -36,7 +36,7 @@ setup_hyprland=$(echo "$setup_hyprland" | tr '[:upper:]' '[:lower:]')
 
 if [ "$setup_hyprland" = "y" ]; then
     echo "Setting up Hyprland Desktop..."
-    sudo pacman -Syu --noconfirm hyprland wofi waybar swaylock swayidle swww dunst polkit greetd greetd-tuigreet xorg-xwayland gcc python3 pulseaudio curl htop fastfetch nautilus pipewire vlc firefox alsa-utils terminator network-manager-applet gvfs-mtp gvfs-gphoto2 qalculate-gtk eog xdg-utils
+    sudo pacman -Syu --noconfirm hyprland wofi waybar swaylock swayidle swww dunst polkit greetd greetd-tuigreet xorg-xwayland gcc python3 pulseaudio curl htop fastfetch nautilus pipewire vlc firefox alsa-utils terminator network-manager-applet gvfs-mtp gvfs-gphoto2 qalculate-gtk eog xdg-utils wl-clipboard  
     sudo systemctl enable pipewire.service # Enable pipewire user service
     sudo systemctl start pipewire.service # Start pipewire user service
 
