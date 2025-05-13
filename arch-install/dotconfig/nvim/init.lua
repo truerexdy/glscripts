@@ -41,3 +41,8 @@ if vim.fn.executable('wl-copy') == 1 and vim.fn.executable('wl-paste') == 1 then
     cache_enabled = 1,
   }
 end
+
+-- Set background to none
+vim.cmd('hi Normal guibg=none')
+vim.cmd('hi NormalFloat guibg=none')
+vim.cmd('hi FloatBorder guibg=none')
