@@ -6,17 +6,18 @@
 }
 
 window#waybar {
-  background: transparent;
-  color: #000000;
+  background: #000000;
+  color: #ffffff;
 }
 
 #workspaces button {
+  color: #ffffff;
   background: transparent;
 }
 
 #workspaces button.active {
   background: transparent;
-  border-bottom: 1px solid #000000;
+  border-bottom: 2px solid #ffffff;
 }
 
 #workspaces button.urgent {

@@ -1,6 +1,3 @@
--- init.lua or keymaps.lua
-
-
 local telescope = require('telescope')
 
 local builtin = require('telescope.builtin')

@@ -1,4 +1,3 @@
--- lua/plugins/formatter.lua
 return {
   "mhartington/formatter.nvim",
   config = function()
@@ -45,12 +44,9 @@ return {
           end
         },
       },
-      -- Add this section to enable formatting on save for all configured filetypes
       format_on_save = {
         enabled = true,
-        -- Specify if you want to format only when the last write was successful
-        -- by default it will format always
-        require_lsps = false, -- Only format if an LSP client is attached.
+        require_lsps = false,
       },
     })
   end,
