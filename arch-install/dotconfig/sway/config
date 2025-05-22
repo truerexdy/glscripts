@@ -316,7 +316,7 @@
 
 	# Run mako on startup:
 	exec mako
-    exec ibus start --type=wayland &
+    exec ibus start --type=wayland
     exec nm-applet
 
 #---------------------------
