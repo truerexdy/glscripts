@@ -4,7 +4,7 @@
   "height": 30,
   "spacing": 4,
   "modules-left": [
-    "hyprland/workspaces"
+    "sway/workspaces"
   ],
   "modules-right": [
     "pulseaudio",
@@ -16,8 +16,7 @@
     "clock",
     "tray"
   ],
-
-  "hyprland/workspaces": {
+  "sway/workspaces": {
     "disable-scroll": false,
     "all-outputs": true,
     "on-click": "activate",

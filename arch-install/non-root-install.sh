@@ -21,7 +21,8 @@ setup_hyprland=$(echo "$setup_hyprland" | tr '[:upper:]' '[:lower:]')
 
 if [ "$setup_hyprland" = "y" ]; then
     echo "Setting up Hyprland Desktop..."
-    sudo pacman -Syu hyprland wofi waybar swaylock swayidle swww mako polkit lightdm lightdm-gtk-greeter xorg-xwayland gcc python3 curl htop nautilus pipewire vlc firefox alsa-utils terminator network-manager-applet gvfs-mtp gvfs-gphoto2 qalculate-gtk eog xdg-utils wl-clipboard slurp grim ibus
+
+sudo pacman -S networkmanager bluez bluez-utils pipewire pipewire-pulse pipewire-alsa ntfs-3g sway swaybg swaylock swayidle waybar wl-clipboard grim slurp grimshot vlc imv foot nm-applet ibus gvfs gvfs-mtp scrcpy wofi nautilus mako lxsession lightdm zip unzip nvim xdg-desktop-portal xdg-desktop-portal-wlr fontconfig ttf-dejavu noto-fonts udisks2 brightnessctl pavucontrol alsa-utils
 
     echo "Copying dotfiles..."
     mkdir -p ~/.config/

@@ -9,7 +9,7 @@
     cursor_bg_color = "#ffffff"
     cursor_color_default = False
     font = Space Mono Bold 18
-    foreground_color = "#00ff00"
+    foreground_color = "#ffffff"
     use_system_font = False
     title_transmit_bg_color = "#010c1a"
     title_receive_bg_color = "#010c1a"
