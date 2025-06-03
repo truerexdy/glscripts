@@ -9,7 +9,7 @@ fi
 echo "Starting Arch Linux post-installation setup..."
 echo "Updating system and installing essential packages..."
 pacman -Syu --noconfirm
-pacman -S --noconfirm neovim sudo git ufw networkmanager base-devel grub efibootmgr
+pacman -S --noconfirm neovim sudo git ufw networkmanager network-manager-applet base-devel grub efibootmgr
 
 if ! command -v grub-install &> /dev/null; then
     echo "Essential packages did not install correctly. Exiting."
