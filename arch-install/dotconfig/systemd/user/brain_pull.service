@@ -1,0 +1,16 @@
+[Unit]
+Description=Pull changes to brain
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/git pull
+User=rexdy
+ProtectSystem=full
+PrivateTmp=true
+NoNewPrivileges=true
+WorkingDirectory=/home/rexdy/brain/
+Restart=no
+Nice=10
+
+[Install]
+WantedBy=network-online.target

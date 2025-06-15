@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer to clear the ~/.cache/ folder
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=4d
+Persistent=true
+
+[Install]
+WantedBy=default.target

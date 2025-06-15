@@ -1,0 +1,20 @@
+[Unit]
+Description=Push changes from brain
+DefaultDependencies=no
+Before=shutdown.target reboot.target halt.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/rexdy/brain/git-sync.sh
+User=rexdy
+ProtectSystem=full
+PrivateTmp=true
+TimeoutStopSec=30
+NoNewPrivileges=true
+WorkingDirectory=/home/rexdy/brain/
+Restart=no
+Nice=10
+
+[Install]
+WantedBy=shutdown.target reboot.target halt.target
+

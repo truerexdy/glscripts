@@ -1,0 +1,10 @@
+[Unit]
+Description=Delete the ~/.cache/ folder
+
+[Service]
+Type=oneshot
+ExecStart=rm -rf /home/rexdy/.cache/*
+Restart=no
+
+[Install]
+WantedBy=timers.target
