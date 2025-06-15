@@ -6,10 +6,68 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+detect_cpu() {
+    if lscpu | grep -q "AuthenticAMD"; then
+        MICROCODE="amd-ucode"
+    elif lscpu | grep -q "GenuineIntel"; then
+        MICROCODE="intel-ucode"
+    else
+        MICROCODE=""
+    fi
+}
+
+detect_gpu() {
+    GPU_PACKAGES=""
+    
+    if lspci | grep -i nvidia &> /dev/null; then
+        GPU_PACKAGES+="nvidia nvidia-utils "
+    fi
+    
+    if lspci | grep -i -E "(amd|ati|radeon)" &> /dev/null; then
+        GPU_PACKAGES+="mesa vulkan-radeon "
+    fi
+    
+    if lspci | grep -i "intel.*graphics" &> /dev/null; then
+        GPU_PACKAGES+="mesa vulkan-intel "
+    fi
+    
+    if [[ -z "$GPU_PACKAGES" ]]; then
+        GPU_PACKAGES="mesa"
+    fi
+}
+
+is_laptop() {
+    [[ -d "/sys/class/power_supply/BAT"* ]]
+}
+
 echo "Starting Arch Linux post-installation setup..."
-echo "Updating system and installing essential packages..."
+echo "Updating system..."
 pacman -Syu --noconfirm
-pacman -S --noconfirm neovim sudo git ufw networkmanager network-manager-applet base-devel grub efibootmgr
+
+echo "Detecting hardware..."
+detect_cpu
+detect_gpu
+
+echo "Installing base packages..."
+BASE_PACKAGES="neovim sudo git ufw networkmanager network-manager-applet base-devel grub efibootmgr linux-firmware"
+
+if [[ -n "$MICROCODE" ]]; then
+    BASE_PACKAGES+=" $MICROCODE"
+fi
+
+pacman -S --noconfirm $BASE_PACKAGES
+
+echo "Installing GPU drivers..."
+pacman -S --noconfirm $GPU_PACKAGES
+
+if is_laptop; then
+    echo "Laptop detected, installing power management..."
+    pacman -S --noconfirm tlp
+    systemctl enable tlp
+fi
+
+echo "Installing audio system..."
+pacman -S --noconfirm pipewire pipewire-pulse wireplumber
 
 if ! command -v grub-install &> /dev/null; then
     echo "Essential packages did not install correctly. Exiting."
@@ -17,70 +75,65 @@ if ! command -v grub-install &> /dev/null; then
 fi
 
 echo "Configuring GRUB..."
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
-echo "Enabling essential services..."
-systemctl enable systemd-journald
-systemctl enable NetworkManager
-ufw enable
+EFI_DIR="/boot"
+if [[ -d "/boot/efi" ]]; then
+    EFI_DIR="/boot/efi"
+fi
 
-echo "Configuring locale and keymap..."
-grep -qxF "en_US.UTF-8 UTF-8" /etc/locale.gen || echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+grub-install --target=x86_64-efi --efi-directory="$EFI_DIR" --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+
+echo "Enabling services..."
+systemctl enable NetworkManager
+systemctl enable systemd-timesyncd
+ufw --force enable
+
+echo "Configuring locale..."
+if ! grep -q "^en_IN.UTF-8 UTF-8" /etc/locale.gen; then
+    echo "en_IN.UTF-8 UTF-8" >> /etc/locale.gen
+fi
 locale-gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "LANG=en_IN.UTF-8" > /etc/locale.conf
 echo "KEYMAP=us" > /etc/vconsole.conf
 
 echo "Setting hostname..."
 while true; do
-    read -rp "Enter the hostname: " hname
-    if [[ "$hname" =~ ^[a-zA-Z0-9][a-zA-Z0-9-]*$ ]]; then
+    read -rp "Enter hostname: " hname
+    if [[ "$hname" =~ ^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$ ]] && [[ ${#hname} -le 63 ]]; then
         echo "$hname" > /etc/hostname
-        echo "Hostname set successfully to $hname."
+        cat > /etc/hosts << EOF
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   $hname.localdomain $hname
+EOF
         break
     else
-        echo "Invalid hostname format. Only alphanumeric characters and hyphens allowed, cannot start with a hyphen."
+        echo "Invalid hostname format."
     fi
 done
 
-echo "Setting Root Password:"
+echo "Setting root password:"
 passwd
 
-echo "Configuring timezone and time synchronization..."
-if [[ -f "/usr/share/zoneinfo/Asia/Calcutta" ]]; then
-    ln -sf /usr/share/zoneinfo/Asia/Calcutta /etc/localtime
+echo "Configuring timezone..."
+if [[ -f "/usr/share/zoneinfo/Asia/Kolkata" ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
     hwclock --systohc
-    systemctl enable systemd-timesyncd
-    echo "Timezone set to Asia/Calcutta and time sync enabled."
-else
-    echo "Warning: Timezone 'Asia/Calcutta' not found. Skipping timezone configuration."
 fi
 
-echo "User creation (optional)..."
-read -rp "Do you want to add a user? (y/n) " uin
-uin=$(echo "$uin" | tr '[:upper:]' '[:lower:]')
-
-if [[ "$uin" == "y" ]]; then
-    read -rp "Enter username: " uname
-    if [[ "$uname" =~ ^[a-z_][a-z0-9_]{0,30}$ ]]; then # Basic Linux username regex
-        if id "$uname" &> /dev/null; then
-            echo "User $uname already exists."
-        else
-            useradd -m "$uname"
-            if id "$uname" &> /dev/null; then
-                echo "Set password for user $uname:"
-                passwd "$uname"
-                echo "User $uname added successfully."
-            else
-                echo "Error: Failed to create user $uname."
-            fi
-        fi
-    else
-        echo "Invalid username format. Usernames must start with a lowercase letter or underscore, followed by lowercase letters, digits, or underscores (max 31 characters)."
-    fi
-else
-    echo "Continuing without adding a user. Only root user will be available initially."
+echo "Creating user..."
+read -rp "Enter username: " uname
+if [[ "$uname" =~ ^[a-z_][a-z0-9_-]{0,31}$ ]]; then
+    useradd -m -G wheel "$uname"
+    passwd "$uname"
+    echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
 fi
 
-echo "Arch Linux post-installation setup complete."
+read -rp "Disable root login for security? (y/n): " disable_root
+if [[ "$disable_root" == "y" ]]; then
+    passwd -l root
+    echo "Root account disabled. Use sudo with your user account."
+fi
 
+echo "Arch Linux setup complete. Reboot recommended."
 exit 0
