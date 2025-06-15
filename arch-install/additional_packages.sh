@@ -29,6 +29,7 @@ essential=(
     "keepassxc"
     "ffmpeg"
     "baobab"
+    "kdeconnect"
 )
 
 devel=(

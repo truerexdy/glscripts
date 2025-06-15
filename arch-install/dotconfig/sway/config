@@ -67,8 +67,8 @@
 
 	# Launch swayidle after 5 minutes of inactivity:
 	exec swayidle -w \
-	          timeout 75 'swaylock -f -c 000000' \
-	          timeout 150 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+	          timeout 90 'swaylock -f -c 000000' \
+	          timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
 	          before-sleep 'swaylock -f -c 000000'
 
 
@@ -318,6 +318,8 @@
 	exec mako
     exec ibus start --type=wayland
     exec nm-applet
+    exec kdeconnectd
+    exec kdeconnect-indicator
 
 #---------------------------
 #-- Graphical appearance: --
