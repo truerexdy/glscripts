@@ -145,29 +145,6 @@ else
     echo "Yay setup skipped."
 fi
 
-if [ "$setup_yay" = "y" ]; then
-    read -rp "Install and configure auto-cpufreq? (y/n): " setup_autocpufreq
-    setup_autocpufreq=$(echo "$setup_autocpufreq" | tr '[:upper:'] '[:lower:]')
-
-    if [ "$setup_autocpufreq" = "y" ]; then
-        echo "Setting up auto-cpufreq."
-        echo "Installing auto-cpufreq from AUR."
-        yay -S --noconfirm auto-cpufreq
-        echo "Copying auto-cpufreq configuration."
-        if [ -f "assets/auto-cpufreq.conf" ]; then
-            sudo cp assets/auto-cpufreq.conf /etc/
-            echo "auto-cpufreq config copied."
-        else
-            echo "Warning: 'assets/auto-cpufreq.conf' not found. Skipping config copy."
-        fi
-        echo "auto-cpufreq setup complete."
-    else
-        echo "auto-cpufreq setup skipped."
-    fi
-else
-    echo "auto-cpufreq setup skipped (requires Yay)."
-fi
-
 echo ""
 echo "Script finished."
 echo "Reboot recommended."
