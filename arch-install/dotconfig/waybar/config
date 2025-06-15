@@ -1,0 +1,90 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 4,
+  "modules-left": [
+    "sway/workspaces"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery",
+    "clock",
+    "tray"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true,
+    "on-click": "activate",
+    "format": "{name}"
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
+  },
+  "clock": {
+    "format": " {:%H:%M %d-%m-%Y}",
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "BAT:{capacity}%",
+    "format-charging": "BAT_CRG:{capacity}%",
+    "format-plugged": "PLUG:{capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "network": {
+    "interface": "wlp4s0",
+    "format-wifi": " {essid}:{signalStrength}%",
+    "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
+    "format-linked": "{ifname} (No IP)",
+    "format-disconnected": "X Disconnected",
+    "tooltip-format-wifi": "Down: {bandwidthDown} | Up: {bandwidthUp}"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {format_source}",
+    "format-bluetooth": "{volume}% {format_source}",
+    "format-bluetooth-muted": " M {format_source}",
+    "format-muted": " Muted {format_source}",
+    "format-source": "{volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+  "cpu": {
+    "format": "CPU:{usage}%",
+    "tooltip": true
+  },
+  "memory": {
+    "format": "MEM:{}%"
+  },
+  "temperature": {
+    "thermal-zone": 0,
+    "format": "TEMP:{temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ],
+    "critical-threshold": 80
+  }
+}

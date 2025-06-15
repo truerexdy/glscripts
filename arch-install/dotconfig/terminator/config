@@ -1,0 +1,24 @@
+[global_config]
+  handle_size = 5
+[keybindings]
+[profiles]
+  [[default]]
+    background_darkness = 0.80
+    background_type = transparent
+    cursor_fg_color = "#000000"
+    cursor_bg_color = "#ffffff"
+    cursor_color_default = False
+    font = Space Mono Bold 18
+    foreground_color = "#ffffff"
+    use_system_font = False
+    title_transmit_bg_color = "#010c1a"
+    title_receive_bg_color = "#010c1a"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]
