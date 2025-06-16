@@ -3,8 +3,7 @@ Description=Pull changes to brain
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/git pull
-User=rexdy
+ExecStart=bash -c 'git pull || echo "Startup pull failed at $(date)" >> /home/rexdy/brain/push.log'
 ProtectSystem=full
 PrivateTmp=true
 NoNewPrivileges=true
