@@ -1,0 +1,11 @@
+[share_name]
+    comment = Description of the share
+    path = /app/nas/share_name
+    browseable = yes
+    read only = no
+    guest ok = no
+    valid users = user1,user2,user3
+    write list = user1,user2
+    create mask = 0775
+    directory mask = 0775
+    force group = sambashare    # If cross user write permission is needed

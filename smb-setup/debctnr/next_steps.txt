@@ -1,0 +1,11 @@
+1. Add users with this
+    sudo useradd username
+    sudo smbpasswd -a username
+
+2. Add users to smbshare group
+    sudo groupadd sambashare
+    sudo usermod -a -G sambashare user
+
+3. Give permission to dir 
+    sudo chown nobody:sambashare /app/nas/share_name
+    sudo chmod 2775 /app/nas/share_name
