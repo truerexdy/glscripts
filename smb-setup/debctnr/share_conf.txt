@@ -8,4 +8,3 @@
     write list = user1,user2
     create mask = 0775
     directory mask = 0775
-    force group = sambashare    # If cross user write permission is needed
