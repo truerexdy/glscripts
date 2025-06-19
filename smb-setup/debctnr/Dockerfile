@@ -7,6 +7,7 @@ RUN apt-get update -y && \
 COPY share_conf.txt next_steps.txt /app/
 
 RUN mkdir /app/nas/
+RUN mkdir /app/config/
 
 WORKDIR /app/
 
