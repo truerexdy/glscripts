@@ -51,7 +51,7 @@ sudo pacman -Sc --noconfirm
 echo "Removing orphaned packages..."
 if pacman -Qtdq > /dev/null 2>&1; then
     sudo pacman -Rns $(pacman -Qtdq) --noconfirm
-    print_success "Orphaned packages removed."
+    echo "Orphaned packages removed."
 else
     echo "No orphaned packages found."
 fi
@@ -59,8 +59,8 @@ fi
 echo "Performing final cache cleanup..."
 sudo pacman -Scc --noconfirm
 
-print_success "Minimal GNOME with Wayland installation completed successfully!"
-print_warning "To start GNOME, run 'gnome-session' from a TTY (Ctrl+Alt+F2)"
+echo "Minimal GNOME with Wayland installation completed successfully!"
+echo "To start GNOME, run 'gnome-session' from a TTY (Ctrl+Alt+F2)"
 echo "GNOME will automatically use Wayland when available."
 
 echo
